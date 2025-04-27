@@ -1,4 +1,4 @@
-name: Flutter Android Build
+name: Flutter Build APK
 
 on:
   push:
@@ -7,16 +7,16 @@ on:
 
 jobs:
   build:
+    name: Build APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6'  # (یا نسخه فلوتری که خودت داری، اگه فرق داشت.)
+          flutter-version: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
@@ -25,7 +25,7 @@ jobs:
         run: flutter build apk --release
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: release-apk
+          name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
